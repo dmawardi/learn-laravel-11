@@ -11,7 +11,8 @@ Route::get('/', function () {
 });
 
 Route::get('/jobs', function () {
-    $jobs = Job::with('employer')->get();
+    // paginate automatically looks for a page query parameter, and if it finds it, it will return the corresponding page of results
+    $jobs = Job::with('employer')->paginate(3);
 
     return view('jobs', [
         'jobs' => $jobs
