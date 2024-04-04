@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create();
 
-        Job::factory(6)->create();
+        // Call seeders
+        $this->call([
+            JobSeeder::class,
+        ]);
+
     }
 }
