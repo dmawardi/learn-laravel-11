@@ -12,23 +12,40 @@ Route::get('/', function () {
 
 Route::get('/jobs', function () {
     // paginate automatically looks for a page query parameter, and if it finds it, it will return the corresponding page of results
-    $jobs = Job::with('employer')->paginate(3);
+    // order by created date in descending order
+    $jobs = Job::with('employer')->latest()->paginate(3);
 
-    return view('job.jobs', [
+
+    return view('jobs.index', [
         'jobs' => $jobs
     ]);
 });
 
 Route::get('/jobs/create', function () {
-    dd('create');
-    return view('job.create');
+    return view('jobs.create');
 });
 
 Route::get('/jobs/{id}', function ($id) {
     
     // Use the array helper class to find the first job with the given id
     $job = Job::find($id);
-    return view('job.job', ['job' => $job]);
+    return view('jobs.show', ['job' => $job]);
+});
+
+Route::post('/jobs', function () {
+    // $this.validator(request(), [
+    //     'title' => 'required',
+    //     'salary' => 'required',
+    //     'employer_id'  => 'required',
+    // ]);
+
+    Job::create([
+        'title' => request('title'),
+        'salary' => request('salary'),
+        'employer_id' => 1,
+    ]);
+
+    return redirect('/jobs');
 });
 
 Route::get('/contact', function () {

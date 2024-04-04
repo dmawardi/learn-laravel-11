@@ -13,7 +13,8 @@ class Job extends Model
     // ie. the plural form of the class name
     protected $table = 'job_listings';
 
-    protected $fillable = ['title', 'salary'];
+    // protected $fillable = ['title', 'salary', 'employer_id'];
+    protected $guarded = [];
 
     use HasFactory;
 
