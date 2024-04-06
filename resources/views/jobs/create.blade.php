@@ -15,10 +15,13 @@
                             <div
                                 class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
 
-                                <input type="text" name="title" id="title"
+                                <input type="text" name="title" id="title" value="{{ old('title') }}"
                                     class="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                    placeholder="Scrum Leader">
+                                    placeholder="Scrum Leader" required>
                             </div>
+                            @error('title')
+                                <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
@@ -28,19 +31,30 @@
                             <div
                                 class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
 
-                                <input type="text" name="salary" id="salary"
+                                <input type="text" name="salary" id="salary" value="{{ old('salary') }}"
                                     class="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                    placeholder="$60,000 USD">
+                                    placeholder="$60,000 USD" required>
                             </div>
+                            @error('salary')
+                                <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
                 </div>
+
+                {{-- Example of outputting errors all together in single list --}}
+                {{-- <div class="mt-10">
+                    @if ($errors->any())
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-red-500 italic">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </div> --}}
+
             </div>
-
-
-
-
         </div>
 
         <div class="mt-6 flex items-center justify-end gap-x-6">

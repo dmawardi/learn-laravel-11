@@ -22,6 +22,7 @@ Route::get('/jobs', function () {
 });
 
 Route::get('/jobs/create', function () {
+    
     return view('jobs.create');
 });
 
@@ -33,11 +34,11 @@ Route::get('/jobs/{id}', function ($id) {
 });
 
 Route::post('/jobs', function () {
-    // $this.validator(request(), [
-    //     'title' => 'required',
-    //     'salary' => 'required',
-    //     'employer_id'  => 'required',
-    // ]);
+    request()->validate([
+        'title' => ['required', 'min:3', 'max:255'],
+        'salary' => ['required', 'max:255'],
+        'employer_id'  => ['required', 'numeric'],
+    ]);
 
     Job::create([
         'title' => request('title'),
