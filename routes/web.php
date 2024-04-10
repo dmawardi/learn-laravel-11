@@ -10,6 +10,7 @@ Route::get('/', function () {
     return view('home');
 });
 
+// Index
 Route::get('/jobs', function () {
     // paginate automatically looks for a page query parameter, and if it finds it, it will return the corresponding page of results
     // order by created date in descending order
@@ -21,11 +22,13 @@ Route::get('/jobs', function () {
     ]);
 });
 
+// Create
 Route::get('/jobs/create', function () {
     
     return view('jobs.create');
 });
 
+// Show
 Route::get('/jobs/{id}', function ($id) {
     
     // Use the array helper class to find the first job with the given id
@@ -33,6 +36,7 @@ Route::get('/jobs/{id}', function ($id) {
     return view('jobs.show', ['job' => $job]);
 });
 
+// Store
 Route::post('/jobs', function () {
     request()->validate([
         'title' => ['required', 'min:3', 'max:255'],
@@ -47,6 +51,14 @@ Route::post('/jobs', function () {
     ]);
 
     return redirect('/jobs');
+});
+
+// Edit
+Route::get('/jobs/{id}/edit', function ($id) {
+    
+    // Use the array helper class to find the first job with the given id
+    $job = Job::find($id);
+    return view('jobs.edit', ['job' => $job]);
 });
 
 Route::get('/contact', function () {
