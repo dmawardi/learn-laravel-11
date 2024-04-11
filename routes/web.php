@@ -18,15 +18,18 @@ Route::view('/', 'home');
 Route::get('/jobs', [JobController::class, 'index']);
 
 
-Route::controller(JobController::class)->group(function() {
-    Route::get('/jobs', 'index');
-    Route::get('/jobs/create', 'create');
-    Route::get('/jobs/{job}', 'show');
-    Route::post('/jobs', 'store');
-    Route::get('/jobs/{job}/edit', 'edit');
-    Route::patch('/jobs/{job}', 'update');
-    Route::delete('/jobs/{job}', 'destroy');
-});
+Route::resource('jobs', JobController::class);
+
+// The above replaces everything below
+// Route::controller(JobController::class)->group(function() {
+//     Route::get('/jobs', 'index');
+//     Route::get('/jobs/create', 'create');
+//     Route::get('/jobs/{job}', 'show');
+//     Route::post('/jobs', 'store');
+//     Route::get('/jobs/{job}/edit', 'edit');
+//     Route::patch('/jobs/{job}', 'update');
+//     Route::delete('/jobs/{job}', 'destroy');
+// });
 // // Create
 // Route::get('/jobs/create', [JobController::class, 'create']);
 // // Show
