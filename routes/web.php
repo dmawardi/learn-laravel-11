@@ -1,87 +1,43 @@
 <?php
 
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
 
 use function Pest\Laravel\get;
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+// To replace above, with single line (only works for GET requests)
+Route::view('/', 'home');
 
 // Index
-Route::get('/jobs', function () {
-    // paginate automatically looks for a page query parameter, and if it finds it, it will return the corresponding page of results
-    // order by created date in descending order
-    $jobs = Job::with('employer')->latest()->paginate(3);
+Route::get('/jobs', [JobController::class, 'index']);
 
 
-    return view('jobs.index', [
-        'jobs' => $jobs
-    ]);
+Route::controller(JobController::class)->group(function() {
+    Route::get('/jobs', 'index');
+    Route::get('/jobs/create', 'create');
+    Route::get('/jobs/{job}', 'show');
+    Route::post('/jobs', 'store');
+    Route::get('/jobs/{job}/edit', 'edit');
+    Route::patch('/jobs/{job}', 'update');
+    Route::delete('/jobs/{job}', 'destroy');
 });
+// // Create
+// Route::get('/jobs/create', [JobController::class, 'create']);
+// // Show
+// Route::get('/jobs/{job}', [JobController::class, 'show']);
+// // Store
+// Route::post('/jobs', [JobController::class, 'store']);
+// // Edit
+// Route::get('/jobs/{job}/edit', [JobController::class, 'edit']);
+// // Update
+// Route::patch('/jobs/{job}', [JobController::class, 'update']);
+// // Delete
+// Route::delete('/jobs/{job}', [JobController::class, 'destroy']);
 
-// Create
-Route::get('/jobs/create', function () {
-    
-    return view('jobs.create');
-});
-
-// Show
-Route::get('/jobs/{id}', function ($id) {
-    
-    // Use the array helper class to find the first job with the given id
-    $job = Job::find($id);
-    return view('jobs.show', ['job' => $job]);
-});
-
-// Store
-Route::post('/jobs', function () {
-    request()->validate([
-        'title' => ['required', 'min:3', 'max:255'],
-        'salary' => ['required', 'max:255'],
-    ]);
-
-    Job::create([
-        'title' => request('title'),
-        'salary' => request('salary'),
-        'employer_id' => 1,
-    ]);
-
-    return redirect('/jobs');
-});
-
-// Edit
-Route::get('/jobs/{id}/edit', function ($id) {
-    // Use the array helper class to find the first job with the given id
-    $job = Job::find($id);
-    return view('jobs.edit', ['job' => $job]);
-});
-
-// Update
-Route::patch('/jobs/{id}', function ($id) {
-    request()->validate([
-        'title' => ['required', 'min:3', 'max:255'],
-        'salary' => ['required', 'max:255'],
-    ]);
-
-    $job = Job::findOrFail($id);
-    $job->update([
-        'title' => request('title'),
-        'salary' => request('salary'),
-    ]);
-
-    return redirect('/jobs/' . $job->id);
-});
-
-Route::delete('/jobs/{id}', function ($id) {
-    $job = Job::findOrFail($id);
-
-    $job->delete();
-    return redirect('/jobs');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-});
+Route::view('/contact', 'contact');
