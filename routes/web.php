@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
@@ -42,5 +43,7 @@ Route::resource('jobs', JobController::class);
 // Route::patch('/jobs/{job}', [JobController::class, 'update']);
 // // Delete
 // Route::delete('/jobs/{job}', [JobController::class, 'destroy']);
+
+Route::get('/register', [RegisterController::class, 'create']);
 
 Route::view('/contact', 'contact');
