@@ -1,5 +1,5 @@
 <x-layout>
-    <x-slot:heading>Register</x-slot:heading>
+    <x-slot:heading>Login</x-slot:heading>
 
     <form method="POST" action="/login">
         @csrf
@@ -10,7 +10,8 @@
                     <x-form-field>
                         <x-form-label for="email">Email</x-form-label>
                         <div class="mt-2">
-                            <x-form-input name="email" id="email" type="email" required></x-form-input>
+                            <x-form-input name="email" id="email" type="email" required
+                                value="{{ old('email') }}"></x-form-input>
                             <x-form-error name="email"></x-form-error>
                         </div>
                     </x-form-field>
