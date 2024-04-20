@@ -44,6 +44,16 @@ class JobController extends Controller
 
     public function edit(Job $job)
     {
+         // If user is guest
+         if (Auth()->guest()) {
+            return redirect('/login');
+        }
+
+        // If employer of job is not the same as the authenticated user
+        if ($job->employer()->user()->isNot(Auth()->user())) {
+            // Abort forbidden
+            abort(403);
+        }
         return view('jobs.edit', ['job' => $job]);
     }
 
