@@ -47,12 +47,6 @@ class JobController extends Controller
 
     public function edit(Job $job)
     {
-
-        // dd(Auth::user()->can('edit-job', $job));
-        if (Auth::user()->cannot('edit-job', $job)) {
-            abort(403);
-        }
-        
         return view('jobs.edit', ['job' => $job]);
     }
 
