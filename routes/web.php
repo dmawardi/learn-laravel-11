@@ -29,11 +29,11 @@ Route::get('/jobs/{job}', [JobController::class, 'show']);
 // Store
 Route::post('/jobs', [JobController::class, 'store'])->middleware('auth');
 // Edit (Must be authorized and can edit job. Pass job as parameter)
-Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->middleware('auth')->can('edit-job', 'job');
+Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->middleware('auth')->can('edit', 'job');
 // Update
-Route::patch('/jobs/{job}', [JobController::class, 'update'])->middleware('auth')->can('edit-job', 'job');
+Route::patch('/jobs/{job}', [JobController::class, 'update'])->middleware('auth')->can('edit', 'job');
 // Delete
-Route::delete('/jobs/{job}', [JobController::class, 'destroy'])->middleware('auth')->can('edit-job', 'job');
+Route::delete('/jobs/{job}', [JobController::class, 'destroy'])->middleware('auth')->can('edit', 'job');
 
 // The above replaces everything below
 // Route::controller(JobController::class)->group(function() {

@@ -25,10 +25,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::preventLazyLoading();
 
-        // Gates will automatically accept the user as the first parameter
-        Gate::define('edit-job', function (User $user, Job $job) {
-            // dd($job->employer->user->is($user));
-            return $job->employer->user->is($user);
-        });
+        // // Gates will automatically accept the user as the first parameter
+        // Gate::define('edit-job', function (User $user, Job $job) {
+        //     // dd($job->employer->user->is($user));
+        //     return $job->employer->user->is($user);
+        // });
     }
 }
