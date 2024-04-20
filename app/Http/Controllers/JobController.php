@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use App\Models\User;
-use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class JobController extends Controller
 {
@@ -46,19 +47,12 @@ class JobController extends Controller
 
     public function edit(Job $job)
     {
-        Gate::define('update-job', function (User $user, Job $job) {
-            return $job->employer()->user()->is($user);
-        });
-         // If user is guest
-         if (Auth()->guest()) {
-            return redirect('/login');
-        }
 
-        // If employer of job is not the same as the authenticated user
-        if ($job->employer()->user()->isNot(Auth()->user())) {
-            // Abort forbidden
+        // dd(Auth::user()->can('edit-job', $job));
+        if (Auth::user()->cannot('edit-job', $job)) {
             abort(403);
         }
+        
         return view('jobs.edit', ['job' => $job]);
     }
 
