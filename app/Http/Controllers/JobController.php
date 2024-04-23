@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -36,11 +37,14 @@ class JobController extends Controller
             'salary' => ['required', 'max:255'],
         ]);
 
-        Job::create([
+        $job = Job::create([
             'title' => request('title'),
             'salary' => request('salary'),
             'employer_id' => 1,
         ]);
+
+        // Send email to user and use job variable in the view
+        Mail::to($job()->employer()->user)->send(new \App\Mail\JobPosted($job));
 
         return redirect('/jobs');
     }

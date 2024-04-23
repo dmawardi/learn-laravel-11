@@ -6,12 +6,17 @@ use App\Http\Controllers\SessionController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
+use Illuminate\Support\Facades\Mail;
 
 use function Pest\Laravel\get;
 
 // Route::get('/', function () {
 //     return view('home');
 // });
+
+Route::get('test', function() {
+    // Mail::to('lary@laracasts.com')->send(new \App\Mail\JobPosted());
+});
 
 // To replace above, with single line (only works for GET requests)
 Route::view('/', 'home');
