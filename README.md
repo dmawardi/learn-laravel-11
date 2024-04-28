@@ -276,6 +276,16 @@ The second method is the preferred method.
 8. Add the factory to the database seeder file
 9. Add seeds to the database using the command: php artisan db:seed (This will use the seeder file in the database/seeders folder)
 
+## Using Orchid Platform (Admin panel)
+
+1. Install the Orchid Platform using the command: composer require orchid/platform
+2. Publish the vendor files using the command: php artisan vendor:publish
+3. Run the Orchid installer using the command: php artisan orchid:install
+4. Build a screen using the command: php artisan orchid:screen ExampleScreen
+5. Add the screen to the PlatformProvider file in the Orchid folder to make a link to it from the admin side menu
+6. Add the screen to the routes file in the routes/platform.php file (include ->breadcrumbs to add breadcrumbs to the screen)
+7. Add the screen to the menu in the resources/views/vendor/orchid/layout/header.blade.php file
+
 ## Helpful tips
 
 When creating a DB model, you should aim to buid migrations first, then models, then controllers. This is the best practice for building a Laravel application.
