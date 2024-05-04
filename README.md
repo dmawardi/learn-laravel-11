@@ -286,6 +286,28 @@ The second method is the preferred method.
 6. Add the screen to the routes file in the routes/platform.php file (include ->breadcrumbs to add breadcrumbs to the screen)
 7. Add the screen to the menu in the resources/views/vendor/orchid/layout/header.blade.php file
 
+## Debugbar
+
+```bash
+# To install the debugbar
+composer require barryvdh/laravel-debugbar --dev
+# To publish the debugbar
+php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
+```
+
+### Other Orchid commands
+
+        ```bash
+        # To create a new screen
+        php artisan orchid:screen ExampleScreen
+        # To create a new layout
+        php artisan orchid:layout ExampleLayout
+        # To create a new section
+        php artisan orchid:section ExampleSection
+        # To create a new widget
+        php artisan orchid:widget ExampleWidget
+        ```
+
 ## Helpful tips
 
 When creating a DB model, you should aim to buid migrations first, then models, then controllers. This is the best practice for building a Laravel application.
