@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Mail;
 
 use function Pest\Laravel\get;
 
+
+Route::get('test', function() {
+
+    dispatch(function() {
+        logger('Job posted');
+        // Mail::to('')->send(new \App\Mail\JobPosted());
+})->delay(now()->addMinutes(1));
+});
+
 // Route::get('/', function () {
 //     return view('home');
 // });
@@ -66,7 +75,7 @@ Route::delete('/jobs/{job}', [JobController::class, 'destroy'])->middleware('aut
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/login', [SessionController::class, 'create']);
+Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
 

@@ -44,7 +44,7 @@ class JobController extends Controller
         ]);
 
         // Send email to user and use job variable in the view
-        Mail::to($job()->employer()->user)->send(new \App\Mail\JobPosted($job));
+        Mail::to($job->employer->user)->queue(new \App\Mail\JobPosted($job));
 
         return redirect('/jobs');
     }
