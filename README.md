@@ -139,6 +139,9 @@ This allows you to change behavior during bootstrapping of the application. For 
     php artisan make:mail PostMail
     # To make a factory, seeder, migration and model together (Usually a seeder isn't required ie. -mf)
     php artisan make:model Post -msf
+
+    # Make job
+    php artisan make:job ProcessPodcast
     ```
 
 ## Sending Mail

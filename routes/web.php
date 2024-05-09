@@ -3,6 +3,7 @@
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
+use App\Jobs\TranslateJob;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
@@ -13,10 +14,10 @@ use function Pest\Laravel\get;
 
 Route::get('test', function() {
 
-    dispatch(function() {
-        logger('Job posted');
-        // Mail::to('')->send(new \App\Mail\JobPosted());
-})->delay(now()->addMinutes(1));
+    $job = Job::first();
+
+    TranslateJob::dispatch($job)
+   ->delay(now()->addMinutes(1));
 });
 
 // Route::get('/', function () {
